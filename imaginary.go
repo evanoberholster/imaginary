@@ -20,7 +20,7 @@ var (
 	aAddr              = flag.String("a", "", "Bind address")
 	aPort              = flag.Int("p", 8088, "Port to listen")
 	aVers              = flag.Bool("v", false, "Show version")
-	aVersl             = flag.Bool("version", false, "Show version")
+	aVersl             = flag.Bool("version", true, "Show version")
 	aHelp              = flag.Bool("h", false, "Show help")
 	aHelpl             = flag.Bool("help", false, "Show help")
 	aPathPrefix        = flag.String("path-prefix", "/", "Url path prefix to listen to")
@@ -136,7 +136,7 @@ func main() {
 
 	// Show warning if gzip flag is passed
 	if *aGzip {
-		fmt.Println("warning: -gzip flag is deprecated and will not have effect")
+		fmt.Println("Warning: -gzip flag is deprecated and will not have effect")
 	}
 
 	// Create a memory release goroutine
@@ -163,7 +163,7 @@ func main() {
 	if *aPlaceholder != "" {
 		buf, err := ioutil.ReadFile(*aPlaceholder)
 		if err != nil {
-			exitWithError("cannot start the server: %s", err)
+			exitWithError("Cannot start the server: %s", err)
 		}
 
 		imageType := bimg.DetermineImageType(buf)
@@ -177,7 +177,7 @@ func main() {
 		opts.PlaceholderImage = placeholder
 	}
 
-	debug("imaginary server listening on port :%d/%s", opts.Port, strings.TrimPrefix(opts.PathPrefix, "/"))
+	debug("Imaginary server listening on port :%d/%s", opts.Port, strings.TrimPrefix(opts.PathPrefix, "/"))
 
 	// Load image source providers
 	LoadSources(opts)
@@ -185,7 +185,7 @@ func main() {
 	// Start the server
 	err := Server(opts)
 	if err != nil {
-		exitWithError("cannot start the server: %s", err)
+		exitWithError("Cannot start the server: %s", err)
 	}
 }
 
@@ -262,7 +262,7 @@ func memoryRelease(interval int) {
 	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	go func() {
 		for range ticker.C {
-			debug("FreeOSMemory()")
+			debug("Free System Memory")
 			d.FreeOSMemory()
 		}
 	}()

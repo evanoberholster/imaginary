@@ -69,8 +69,10 @@ WORKDIR $GOPATH
 RUN go get -u golang.org/x/net/context
 RUN go get -u github.com/golang/dep/cmd/dep
 
-# Copy imaginary sources
-COPY . $GOPATH/src/github.com/h2non/imaginary
+# Copy O2imaginary sources
+RUN go get -u github.com/evanoberholster/imaginary
+
+#COPY . $GOPATH/src/github.com/h2non/imaginary
 
 # Compile imaginary
 RUN go build -race -o bin/imaginary github.com/h2non/imaginary
